@@ -16,7 +16,7 @@
   <body class="page">
     <header class="header">
       <div class="header__logo-group">
-        <a class="logo-group__title" href="#page">&lt;/html&gt;</a>
+        <p class="logo-group__title">&lt;/html&gt;</p>
         <h1 class="logo-group__subtitle">закрывающий тег</h1>
       </div>
     </header>
@@ -229,24 +229,36 @@
           </button>
         </div>
       </article>
-      <button class="save-button button" type="button" onclick="window['save-dialog'].showModal()" aria-controls="save-dialog">
+      <button class="save-button button" type="button" id="save-button" aria-controls="save-dialog">
         <svg class="save-icon" viewBox="0 0 21 21">
           <use href="./svg/floppy.svg#floppy" />
         </svg>
         <span class="button__text">Сохранить на память</span>
       </button>
+
       <dialog class="dialog" id="save-dialog">
         <svg class="dialog__icon" viewBox="0 0 21 21">
           <use href="./svg/floppy.svg#floppy" />
         </svg>
         <p class="dialog__title">Вставьте дискету, чтобы продолжить</p>
         <form method="dialog" class="button-form">
-          <button class="dialog__button button" type="button" onclick="window['save-dialog'].close()">
+          <button class="dialog__button button" type="submit">
             <span class="button__text">ок</span>
           </button>
         </form>
       </dialog>
     </main>
     <script src="./scripts/like.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const saveButton = document.getElementById('save-button');
+      const saveDialog = document.getElementById('save-dialog');
+      
+      saveButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        saveDialog.showModal();
+      });
+    });
+    </script>
   </body>
 </html>
