@@ -10,7 +10,412 @@
 
 */
 
+/* ================ COMMON ================*/
+
 .page {
+  padding-block: 100px;
   min-inline-size: 320px;
   min-block-size: 100dvb;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-color: var(--background-color);
+  background-image:
+    repeating-linear-gradient(to right, var(--background-image-lines) 0 2px, transparent 2px 4px),
+    repeating-linear-gradient(to bottom, var(--background-image-lines) 0 2px, transparent 2px 4px),
+    repeating-linear-gradient(to bottom, var(--background-image));
+  font-family: var(--main-font);
+  font-variation-settings: 'wght' var(--text-font-weight);
+  color: var(--accent-color);
+}
+
+.button {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  position: relative;
+  padding: 0;
+  background-color: transparent;
+  border: var(--border);
+  box-shadow: none;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--accent-color);
+  transform: scale(0, 1);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  outline: none;
+  box-shadow: 2px 2px 0 var(--accent-color);
+}
+
+/* ================ HEADER ================ */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  gap: 25px;
+  margin-inline: auto;
+  margin-block-end: 100px;
+  padding: clamp(7.5rem, 7.1479rem + 1.5023vw, 8rem) clamp(0.875rem, -5.0626rem + 25.333vw, 7.531rem);
+  width: var(--content-width);
+  background-color: var(--background-color);
+  border: var(--border);
+  font-family: var(--accent-font);
+  text-transform: uppercase;
+}
+
+.header__logo-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-items: center;
+}
+
+.logo-group__title {
+  font-size: clamp(49px, 4.0625rem, 6vw);
+  text-decoration: none;
+}
+
+.logo-group__title:focus {
+  outline: none;
+}
+
+.logo-group__subtitle {
+  font-size: clamp(14px, 1.4375rem, 2.1vw);
+}
+
+/* ================ MAIN ================ */
+
+.main {
+  display: grid;
+  gap: 50px;
+  width: var(--content-width);
+  margin: auto;
+}
+
+/* === card === */
+
+.card {
+  display: grid;
+  background-color: var(--background-color);
+  border: var(--border);
+}
+.card__title {
+  padding: 5px 10px;
+  font-variation-settings: 'wght' var(--title-font-weight);
+  font-size: 1.125rem;
+}
+
+.card__image-block {
+  display: grid;
+  overflow: hidden;
+  border-block: var(--border);
+}
+
+.card__image {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card:nth-child(2) .card__image {
+  filter: saturate(0.2);
+}
+
+.card:nth-child(3) .card__image {
+  filter: saturate(3.5);
+}
+
+.card:nth-child(4) .card__image {
+  filter: hue-rotate(30deg);
+}
+
+.card:nth-child(5) .card__image {
+  filter: invert(0.8);
+}
+
+.card:nth-child(6) .card__image {
+  filter: sepia(0.9);
+}
+
+.card:nth-child(7) .card__image {
+  filter: blur(10px);
+}
+
+.card:nth-child(8) .card__image {
+  filter: hue-rotate(90deg) blur(2px) opacity(0.7) brightness(0.6);
+}
+
+.watermark {
+  position: absolute;
+  justify-self: end;
+  margin-block-start: max(23px, 1.736%);
+  margin-inline-end: max(11px, 1.736%);
+  color: var(--accent-color);
+  font-family: var(--accent-font);
+  font-size: 0.875rem;
+  font-weight: var(--title-font-weight);
+  text-shadow:
+    -1px 0 var(--background-color),
+    0 1px var(--background-color),
+    1px 0 var(--background-color),
+    0 -1px var(--background-color);
+  opacity: 0.5;
+  mix-blend-mode: hard-light;
+  z-index: 1;
+}
+
+@supports ((text-stroke: 1px var(--background-color)) or (-webkit-text-stroke:  1px var(--backdround-color))) {
+  .watermark {
+    -webkit-text-stroke: 1px var(--background-color);
+    text-stroke: 1px var(--background-color);
+    text-shadow: none;
+  }
+}
+
+.card__text-block {
+  display: grid;
+  gap: 27px;
+  padding: 25px;
+  font-size: 1.125rem;
+  line-height: 117%;
+}
+
+.card__button-block {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 8px;
+  justify-content: end;
+  margin-inline-end: 25px;
+  margin-block-end: 25px;
+}
+
+.card__icon-button {
+  padding: 0;
+  background-color: transparent;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.card__icon-button:focus {
+  outline: none;
+}
+
+.card__icon-button:focus-visible {
+  border-color: var(--accent-color);
+}
+
+.like-icon {
+  display: block;
+  transition: fill 0.1s linear;
+}
+
+.sparks {
+  opacity: 0;
+}
+
+.core {
+  fill: transparent;
+  transition: fill 0.3s 0.03s linear;
+}
+
+.main-body {
+  fill: transparent;
+  transition: fill 0.3s linear;
+}
+
+.like-icon:active .core {
+  fill: var(--heart-fill-color);
+  transition: fill 0.3s linear;
+}
+
+.like-icon:active .main-body {
+  fill: var(--heart-fill-color);
+  transition: fill 0.3s 0.05s linear;
+}
+
+.like-icon.is-liked .core {
+  fill: var(--heart-fill-color);
+  transition: fill 0.3s linear;
+}
+
+.like-icon.is-liked .main-body {
+  fill: var(--heart-fill-color);
+  transition: fill 0.3s 0.05s linear;
+}
+
+.like-icon.is-liked .contour {
+  fill: var(--heart-fill-color);
+  transition: fill 0.3s 0.06s linear;
+}
+
+.like-icon.is-liked .heart {
+  animation: heart-scale 0.3s 0.1s ease-in alternate;
+}
+
+.like-icon.is-liked .sparks {
+  animation: sparks 0.3s 0.3s ease-in alternate;
+}
+
+.card__like-button {
+  width: 130px;
+  height: 38px;
+}
+
+/* === save button === */
+
+.button__text {
+  color: var(--mix-blend-color);
+  mix-blend-mode: difference;
+  font-family: var(--accent-font);
+  font-size: 14px;
+  line-height: 90%;
+}
+
+.save-button {
+  margin: auto;
+  padding: 15px 18px;
+  background-color: var(--background-color);
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 8px;
+}
+
+.save-icon {
+  width: 21px;
+  color: var(--mix-blend-color);
+  mix-blend-mode: difference;
+}
+
+.dialog[open] {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(2, auto);
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  gap: 30px 20px;
+  width: 357px;
+  height: 193px;
+  padding: 30px;
+  border: var(--border);
+  background-color: var(--background-color);
+  overflow: hidden;
+}
+
+dialog::backdrop {
+  background-color: rgba(0 0 0 / 0.75);
+}
+
+.dialog__icon {
+  width: 39px;
+  color: var(--accent-color);
+}
+
+.dialog__title {
+  color: var(--accent-color);
+  font-family: var(--accent-font);
+  font-size: 0.875rem;
+  line-height: 150%;
+}
+
+.button-form {
+  grid-column: 1 / 3;
+}
+
+.dialog__button {
+  width: 293px;
+  height: 38px;
+}
+
+@media ((hover:hover) and (pointer:fine)) {
+  .button:hover::before {
+    transform: scale(1,1);
+  }
+
+  .theme-menu__button:hover {
+    opacity: 0.6;
+  }
+
+  .like-icon:hover .core {
+    fill: var(--accent-color);
+    transition: fill 0.3s linear;
+  }
+
+  .like-icon:hover .main-body {
+    fill: var(--accent-color);
+    transition: fill 0.3s 0.05s linear;
+  }
+
+  .like-icon:active .core {
+    fill: var(--heart-fill-color);
+    transition: fill 0.3s linear;
+  }
+
+  .like-icon:active .main-body {
+    fill: var(--heart-fill-color);
+    transition: fill 0.3s 0.05s linear;
+  }
+
+  .like-icon.is-liked .core {
+    fill: var(--heart-fill-color);
+    transition: fill 0.3s linear;
+  }
+
+  .like-icon.is-liked .main-body {
+    fill: var(--heart-fill-color);
+    transition: fill 0.3s 0.05s linear;
+  }
+
+  .like-icon.is-liked .contour {
+    fill: var(--heart-fill-color);
+    transition: fill 0.3s 0.06s linear;
+  }
+
+  .like-icon.is-liked .heart {
+    animation: heart-scale 0.3s 0.1s ease-in alternate;
+  }
+
+  .like-icon.is-liked .sparks {
+    animation: sparks 0.3s 0.3s ease-in alternate;
+  }
+}
+
+@media (width <= 375px) {
+  .save-button {
+    grid-template-columns: auto;
+    justify-items: center;
+  }
+
+  .save-icon {
+    width: 28px;
+  }
+
+  .dialog[open] {
+    width: 341px;
+    height: 195px;
+    padding-inline: 38px;
+  }
+
+  .dialog__button {
+    width: 257px;
+  }
 }
